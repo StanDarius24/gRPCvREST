@@ -1,3 +1,3 @@
-gRPC vs REST with benchmark
+gRPC vs REST with benchmarks
 
 IN PROGRESS...
