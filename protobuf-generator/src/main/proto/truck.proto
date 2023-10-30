@@ -1,0 +1,13 @@
+package vehicle;
+
+message Truck {
+  required string name = 1;
+  required string vin = 2;
+  required Trailer trailer = 3;
+  optional int32 km = 4;
+}
+
+message Trailer {
+  required int32 capacity = 10;
+  optional string colour = 11;
+}

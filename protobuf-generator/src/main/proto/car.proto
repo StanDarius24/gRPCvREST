@@ -1,0 +1,7 @@
+package vehicle;
+
+message Car {
+  required string name = 1;
+  required string vin = 2;
+  optional int32 km = 3;
+}

@@ -1,0 +1,67 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+plugins {
+    id 'org.springframework.boot' version '3.1.5'
+    id 'io.spring.dependency-management' version '1.1.3'
+    id 'org.jetbrains.kotlin.jvm' version '1.8.22'
+    id 'org.jetbrains.kotlin.plugin.spring' version '1.8.22'
+    id "com.google.protobuf" version "0.9.4"
+}
+
+group = 'com.stannis'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java
+    implementation 'com.google.protobuf:protobuf-java:3.24.4'
+    // https://mvnrepository.com/artifact/com.google.protobuf/protobuf-java-util
+    implementation 'com.google.protobuf:protobuf-java-util:3.24.4'
+    // https://mvnrepository.com/artifact/com.googlecode.protobuf-java-format/protobuf-java-format
+    implementation 'com.googlecode.protobuf-java-format:protobuf-java-format:1.4'
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-math3
+    implementation 'org.apache.commons:commons-math3:3.6.1'
+    // https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core
+    testImplementation 'org.openjdk.jmh:jmh-core:1.37'
+    // https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-generator-annprocess
+    testImplementation 'org.openjdk.jmh:jmh-generator-annprocess:1.37'
+    // https://mvnrepository.com/artifact/com.google.protobuf/protobuf-gradle-plugin
+    runtimeOnly 'com.google.protobuf:protobuf-gradle-plugin:0.9.4'
+
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'com.fasterxml.jackson.module:jackson-module-kotlin'
+    implementation 'org.jetbrains.kotlin:kotlin-reflect'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+tasks.withType(KotlinCompile) {
+    kotlinOptions {
+        freeCompilerArgs += '-Xjsr305=strict'
+        jvmTarget = '17'
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
+
+//task benchmark(type: Test) {
+//    systemProperty 'maven.test.ITests', 'true'
+//}
+//
+//// Add your benchmark execution logic
+//task benchmarkExecution(type: JavaExec) {
+//    classpath = sourceSets.test.runtimeClasspath
+//    main = 'com.dev9.benchmark.BenchmarkBase' // Replace with your benchmark main class
+//    args '.*'
+//}
+//
+//integrationTest.dependsOn benchmarkExecution
