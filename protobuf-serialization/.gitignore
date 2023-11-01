@@ -1,0 +1,20 @@
+*.class
+
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# IntelliJ Files
+.idea/
+*.iml
+
+# Maven
+target/
+
+# Benchmark Tests
+*.text
+
+# No need to store generated files
+src/main/java/generated/
