@@ -1,0 +1,13 @@
+{
+  "name": "grpc-client-example",
+  "version": "1.0.0",
+  "description": "Node.js gRPC Client Example",
+  "main": "grpc_client.js",
+  "scripts": {
+    "start": "node grpc_client.js"
+  },
+  "dependencies": {
+    "grpc": "^1.24.3",
+    "@grpc/proto-loader": "^0.6.3"
+  }
+}
