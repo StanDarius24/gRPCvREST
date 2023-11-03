@@ -11,3 +11,7 @@ message Trailer {
   required int32 capacity = 10;
   optional string colour = 11;
 }
+
+service FillTruck {
+  rpc FillTruck(Truck) returns (Truck) {};
+}

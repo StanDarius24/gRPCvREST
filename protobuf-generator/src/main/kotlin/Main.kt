@@ -1,13 +1,6 @@
-import vehicle.CarOuterClass
 import vehicle.TruckOuterClass
 
 fun main(args: Array<String>) {
-
-    val car = CarOuterClass.Car.newBuilder()
-        .setKm(123)
-        .setName("Mercedes")
-        .setVin("abcd")
-        .build()
 
     val truck = TruckOuterClass.Truck.newBuilder()
         .setKm(123)
@@ -20,7 +13,6 @@ fun main(args: Array<String>) {
                 .build()
         )
         .build()
-    println(car.toString())
     println(truck.toString())
 
 }
