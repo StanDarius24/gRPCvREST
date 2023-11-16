@@ -1,0 +1,81 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.8.22'
+    id 'org.jetbrains.kotlin.plugin.spring' version '1.8.22'
+    id 'com.google.protobuf' version "0.9.4"
+}
+
+group = 'com.stannis'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    sourceCompatibility = '17'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+//    // https://mvnrepository.com/artifact/io.grpc/grpc-api
+//    implementation 'io.grpc:grpc-api:1.59.0'
+    // https://mvnrepository.com/artifact/io.grpc/grpc-okhttp
+    implementation 'io.grpc:grpc-okhttp:1.59.0'
+    // https://mvnrepository.com/artifact/com.google.protobuf/protobuf-kotlin
+    implementation("com.google.protobuf:protobuf-kotlin:3.25.0-RC2")
+    // https://mvnrepository.com/artifact/com.google.protobuf/protobuf-gradle-plugin
+    runtimeOnly("com.google.protobuf:protobuf-gradle-plugin:0.9.4")
+    // https://mvnrepository.com/artifact/io.grpc/grpc-kotlin-stub
+    runtimeOnly("io.grpc:grpc-kotlin-stub:1.4.0")
+    // https://mvnrepository.com/artifact/io.grpc/grpc-protobuf
+    implementation("io.grpc:grpc-protobuf:1.59.0")
+    // https://mvnrepository.com/artifact/io.grpc/grpc-stub
+    implementation("io.grpc:grpc-stub:1.40.1")
+    // https://mvnrepository.com/artifact/org.apache.tomcat/annotations-api
+    compileOnly("org.apache.tomcat:annotations-api:6.0.53")
+}
+
+tasks.withType(KotlinCompile) {
+    kotlinOptions {
+        freeCompilerArgs += '-Xjsr305=strict'
+        jvmTarget = '17'
+    }
+}
+
+protobuf {
+    protoc {
+        artifact = "com.google.protobuf:protoc:3.25.0"
+    }
+    plugins {
+        grpc {
+            artifact = "io.grpc:protoc-gen-grpc-java:1.59.0"
+        }
+    }
+    generateProtoTasks {
+        all().each { task ->
+            task.plugins {
+                grpc {}
+            }
+        }
+    }
+    generatedFilesBaseDir = file("$projectDir/src/generated")
+}
+
+sourceSets {
+    main {
+        proto {
+            srcDir("src/main/proto")
+        }
+        java {
+            srcDir("build/generated/source/proto/main/grpc")
+            srcDir("build/generated/source/proto/main/java")
+        }
+    }
+}
+
+tasks.withType(Copy) {
+    it.filesMatching("**/*.proto") {
+        it.duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    }
+}

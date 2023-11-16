@@ -8,4 +8,17 @@ class TruckTest: FillTruckGrpc.FillTruckImplBase() {
         super.fillTruck(request, responseObserver)
     }
 
+    fun test() {
+        val truck = TruckOuterClass.Truck.newBuilder()
+            .setVin("123")
+            .setTrailer(
+                TruckOuterClass.Trailer.newBuilder()
+                    .setColour("blue")
+                    .setCapacity(123)
+                    .build()
+            )
+            .setName("asw")
+            .build()
+    }
+
 }
